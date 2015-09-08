@@ -1,0 +1,57 @@
+.cw_block {
+	/*border: 1px solid #474747;*/
+}
+
+
+  /*body * {
+    visibility: hidden;
+  }
+  .section-to-print, .section-to-print * {
+    visibility: visible;
+  }
+  .section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }*/
+
+span.number{
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 10px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .section-to-print, .section-to-print * {
+    visibility: visible;
+  }
+  .section-to-print {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 1276px;
+  }
+  .section-to-print td {
+    width: 30pt !important;
+    height: 30pt !important;
+  }
+  .section-to-print input {
+    display: none !important;
+  }
+
+  #clues {
+    width: 100%;
+  }
+
+  #clues ul {
+    list-style: none;
+  }
+
+}

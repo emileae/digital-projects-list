@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+// Mixins
+@import "components/prefixer";
+@import "components/mixins";
+@import "components/color";
+
+// Variables;
+@import "components/variables";
+
+// Reset
+@import "components/normalize";
+
+// components
+@import "components/global";
+@import "components/icons-material-design";
+@import "components/grid";
+@import "components/navbar";
+@import "components/roboto";
+@import "components/typography";
+@import "components/cards";
+@import "components/toast";
+@import "components/tabs";
+@import "components/tooltip";
+@import "components/buttons";
+@import "components/dropdown";
+@import "components/waves";
+@import "components/modal";
+@import "components/collapsible";
+@import "components/materialbox";
+@import "components/form";
+@import "components/table_of_contents";
+@import "components/sideNav";
+@import "components/preloader";
+@import "components/slider";
+@import "components/date_picker/default.scss";
+@import "components/date_picker/default.date.scss";
+@import "components/date_picker/default.time.scss";
+
+/* My styles */
+
+/* - keeps footer at bottom of page - */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* --- utility --- */
+
+.pad-2-rem{
+	padding: 2rem;
+}
+
+.editable-spaced{
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+/* disable glow */
+textarea.editable, input.editable, div.editable, { 
+  outline: none; 
+}
+
+/*  - - forms - - */
+/* label color */
+.input-field label {
+ color: $primary-body-color;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+ color: $highlight-color;
+}
+.input-field input[type=email]:focus + label {
+ color: $highlight-color;
+}
+.input-field textarea.materialize-textarea:focus + label {
+ color: $highlight-color;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+ border-bottom: 1px solid $highlight-color;
+ box-shadow: 0 1px 0 0 $highlight-color;
+}
+.input-field input[type=email]:focus {
+ border-bottom: 1px solid $highlight-color;
+ box-shadow: 0 1px 0 0 $highlight-color;
+}
+.input-field textarea.materialize-textarea:focus {
+ border-bottom: 1px solid $highlight-color;
+ box-shadow: 0 1px 0 0 $highlight-color;
+}
+
+/* valid color */
+.input-field input[type=text].valid {
+ border-bottom: 1px solid $primary-body-color;
+ box-shadow: 0 1px 0 0 $primary-body-color;
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+ border-bottom: 1px solid #ddd;
+ box-shadow: 0 1px 0 0 #ddd;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+ color: $highlight-color;
+}
+
+[type="checkbox"]:checked + label:before {
+  border-right: 2px solid $highlight-color;
+  border-bottom: 2px solid $highlight-color;
+}
+
+/* - - - - CMS styles - - - - */
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+}
+footer{
+	  /*position: absolute;
+  width: 100%;
+  bottom: 0px;*/
+}
+
+#main{
+	min-height: 100%;
+}
+
+#nav-slide-out-icon{
+	font-size: 3rem;
+  	margin-left: 0.5rem;
+}
+
+/* make the list of available media a different colour */
+#media_list{
+  background-color: #333;
+  padding: 3rem;
+}
+
+.card .card-image.media-list img{
+  max-height: 10rem;
+  width: auto;
+}
+
+
+/*  - - - - - - - BLOG STYLES - - - - - - - -  */
+
+.blog-post{
+  img{
+    display: block;
+    min-width: 100%;
+  }
+  overflow: hidden;
+}
+
+

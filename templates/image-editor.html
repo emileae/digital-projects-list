@@ -1,0 +1,26 @@
+{% extends "promo.html" %}
+
+{% block main %}
+	<p>Hello</p>
+	<div class="canvas-container">
+		<div class="tools">
+		  <a href="#simple_sketch" data-tool="eraser">Eraser</a>
+		  <a href="#simple_sketch" data-color="#000">Pen</a>
+		  <a href="#simple_sketch" data-size="5">5</a>
+		  <a href="#simple_sketch" data-size="20">20</a>
+		  <a href="#simple_sketch" data-download="png">Download</a>
+		</div>
+		<canvas id="simple_sketch" width="800" height="300"></canvas>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="/static/promo/sketch.js"></script>
+	<script type="text/javascript">
+	  $(function() {
+	    $('#simple_sketch').sketch();
+	  });
+	</script>
+{% endblock %}
+

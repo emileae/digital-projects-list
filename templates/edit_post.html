@@ -1,0 +1,163 @@
+{% extends "cms.html" %}
+
+{% block main %}
+<div class="row">
+	<div class="col s12 m12 l12">
+		<h2>Edit Post - {{post.title}}</h2>
+
+		<div class="row">
+		    <form action="/admin/post/edit/{{post.key.id()}}" class="col s12" enctype="multipart/form-data" method="post">
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <input id="title" type="text" name="title" value="{{post.title}}" class="validate">
+		          <label for="title">Title</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <textarea id="short_text" name="short_text" class="materialize-textarea">{{post.short_text}}</textarea>
+		          <label for="short_text">Short text</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <textarea id="post_body" name="post_body" class="editable editable-spaced" data-placeholder="Write your blog post here">{{post.post|safe}}</textarea>
+		          <!-- <label for="post_body">Post</label> -->
+		        </div>
+		      </div>
+		      <div class="row">
+		          
+		        	<div class="file-field input-field col s12">
+
+				      <input id="cover_image" placeholder="Cover Image" class="file-path validate" type="text"/>
+				      <div class="btn">
+				        <span>File</span>
+				        <input type="file" accept="image/*" name="image" />
+				      </div>
+
+				      {% if post.cover_img %}
+				      	<p>cover: <br><img src="{{post.cover_img}}" style="height: 5rem; width: auto;"></p>
+				      {% endif %}
+
+				    </div>
+
+		      </div>
+
+		      <div class="input-field col s12">
+			    <select id="blog_type" name="blog_type">
+			    	{% if post.blog_type %}
+				      	<option value="{{post.blog_type}}">{{post.blog_type}}</option>
+			      	{% endif %}
+			      <option value="work">work</option>
+			      <option value="experiment">experiment</option>
+			    </select>
+			    <label>Post Type</label>
+			  </div>
+
+		      <div class="row">
+		      	<div class="col s12 center">
+		      		{% if post.featured %}
+		      			<input type="checkbox" id="featured" name="featured" checked/>
+		      		{% else %}
+		      			<input type="checkbox" id="featured" name="featured" />
+		      		{% endif %}
+     				<label for="featured">Featured?</label>
+		      	</div>	
+		      </div>
+
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <input id="url" type="text" name="url" value="{{post.url}}" class="validate">
+		          <label for="url">Page URL</label>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+					    <i class="mdi-content-send right"></i>
+				  	</button>
+		        </div>
+		      </div>
+		    </form>
+		  </div>
+
+
+	</div>
+</div>
+
+<div id="media_list" class="row">
+	<div class="col s12 m12 l12">
+
+		{% for m in media %}
+		<div class="row">
+	        <div class="col s12 m12 l12">
+	          <div class="card">
+		        <div class="card-image media-list center">
+		          <img class="" src="{{m.serving_url}}">
+		        </div>
+		        <div class="card-content">
+		          <span class="card-title grey-text text-darken-4">
+		          	<small>
+		          	url: <div style="font-size: 0.6rem;">{{m.serving_url}}=s1200</div> (added =s... for gcs size)<br>
+		          </small>
+		          </span>
+		        </div>
+		      </div>
+	        </div>
+	      </div>
+	    {% endfor %}
+
+	</div>
+
+	<div class="col s12 m12 l12">
+		{% if next_media_curs %}
+		  <div class="row">
+		    <div class="col s12 m12 l12 center">
+		      <div id="more_media" class="waves-effect waves-light btn red darken-1" data-cursor="{{next_media_curs}}" >More</div>
+		    </div>
+		  </div>
+		{% endif %}
+	</div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+	
+	<script type="text/javascript">
+
+		function get_more_media(cursor){
+
+			function success(data){
+				console.log("data: ", data);
+				$("#media_list").html(data);
+			};
+
+			$.ajax({
+				url: "/admin/fetch_media",
+				type:"get",
+				data: {"media_cursor": cursor},
+				success: success
+			}).fail(function(){
+				alert("failed to fetch media");
+			});
+
+		};
+
+		$("body").on("click", "#more_media", function(){
+			var cursor = $(this).data("cursor");
+			get_more_media(cursor);// in cmsinit.js
+		});
+	</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+

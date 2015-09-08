@@ -1,0 +1,32 @@
+<div class="col s12 m12 l12">
+
+		{% for m in media %}
+		<div class="row">
+	        <div class="col s12 m12 l12">
+	          <div class="card">
+		        <div class="card-image media-list center">
+		          <img class="" src="{{m.serving_url}}">
+		        </div>
+		        <div class="card-content">
+		          <span class="card-title activator grey-text text-darken-4">
+		          	<small>
+		          	url: <div style="font-size: 0.6rem;">{{m.serving_url}}=s1200</div> (added =s... for gcs size)<br>
+		          </small>
+		          </span>
+		        </div>
+		      </div>
+	        </div>
+	      </div>
+	    {% endfor %}
+
+	</div>
+
+	<div class="col s12 m12 l12">
+		{% if next_curs %}
+		  <div class="row">
+		    <div class="col s12 m12 l12 center">
+		      <div id="more_media" class="waves-effect waves-light btn red darken-1" data-cursor="{{next_curs}}" >More</div>
+		    </div>
+		  </div>
+		{% endif %}
+	</div>

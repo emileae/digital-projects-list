@@ -1,0 +1,98 @@
+{% extends "index.html" %}
+
+{% block main %}
+
+	<!-- <div class="row">
+		<div class="col s12 center">
+			<h5>Pay test with Spur Credits</h5>
+			<p>Cost R10 (please don't really make a purchase... it'll take your money)</p>
+			<a href="https://www.payfast.co.za/eng/process?cmd=_paynow&amp;receiver=emile.esterhuizen%40gmail.com&amp;item_name=Spur+Credit&amp;item_description=Spur+credits+can+buy+you+all+sorts+of+goodies+form+Spur&amp;amount=10.00&amp;return_url=http%3A%2F%2Fwww.emile.me%2Fstaging%2Fpay-test-success&amp;cancel_url=http%3A%2F%2Fwww.emile.me%2Fstaging%2Fpay-test-cancel"><img src="https://www.payfast.co.za/images/buttons/buynow_basic.gif" width="95" height="26" alt="Buy" title="Buy Now with PayFast" /></a>
+		</div>
+	</div> -->
+
+	<div class="row">
+		<div class="col s12 center">
+			<h5>Custom Integration</h5>
+			<form method="post" action="https://sandbox.payfast.co.za/eng/process">
+				<!-- Production url to POSt to -->
+				<!-- https://www.payfast.co.za/eng/process -->
+				<!-- Merchant -->
+				<input type="hidden" name="merchant_id" value="10002344">
+				<input type="hidden" name="merchant_key" value="z372hurhfx6go">
+				<input type="hidden" name="return_url" value="http://emile.me/staging/pay-test-success">
+				<input type="hidden" name="cancel_url" value="http://emile.me/staging/pay-test-cancel">
+				<input type="hidden" name="notify_url" value="http://emile.me/staging/pay-test-notify">
+				<!-- Buyer -->
+				<input type="hidden" name="name_first" value="Emiru">
+				<input type="hidden" name="name_last" value="EmiruEst">
+				<input type="hidden" name="email_address" value="emile.app@gmail.com">
+				<!-- Transaction -->
+				<input type="hidden" name="m_payment_id" value="payment_001"><!-- merchant payment id - something on my system -->
+				<input type="hidden" name="amount" value="10">
+				<input type="hidden" name="item_name" value="spur_credit">
+				<input type="hidden" name="item_description" value="spur_food_credit">
+				<input type="hidden" name="custom_str1" value="{{token}}">
+				<input type="hidden" name="custom_str2" value="{{registering_email}}">
+				<!-- Transaction Options -->
+				<input type="hidden" name="email_confirmation" value="1">
+				<input type="hidden" name="confirmation_address" value="emile.esterhuizen@gmail.com">
+				<!-- Security Options -->
+				<input type="hidden" name="signature" value="">
+
+				<button class="btn red darken-1 waves-effect waves-light">Buy 10 Credits</button>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
+
+<!-- 
+
+SANDBOX details
+
+Merchant account credentials for testing ITN  (default):
+
+Name	Description
+Username	sbtm01@payfast.co.za
+Merchant ID	10000100
+Merchant Key	46f0cd694581a
+PDT	Disabled
+ITN	Use notify_url to test ITN
+
+Buyer account credentials:
+
+Name	Description
+Username	sbtu01@payfast.co.za
+Password	clientpass
+
+
+
+
+Merchant ID 10002344
+Merchant Key z372hurhfx6go
+Buyer Info
+Buyer Emailsbtu01@payfast.co.za
+Buyer Passclientpass
+Sandbox URL https://sandbox.payfast.co.za/eng/process
+
+ -->
+
+ <!-- 
+	Sample returned response to notify handler
+
+	self.request.body =
+
+	m_payment_id=payment_001&pf_payment_id=189701&payment_status=COMPLETE&item_name=spur_credit&item_description=spur_food_credit&amount_gross=10.00&amount_fee=-2.28&amount_net=7.72&custom_str1=custom_string_1&custom_str2=&custom_str3=&custom_str4=&custom_str5=&custom_int1=&custom_int2=&custom_int3=&custom_int4=&custom_int5=&name_first=Test&name_last=User+01&email_address=sbtu01%40payfast.co.za&merchant_id=10002344&signature=e376f5dcecf9897b60fda101ef0bba10
+  -->
+
+
+
+<!-- payfast pay now buttons -->
+
+<!-- HTML button -->
+<!-- <a href="https://www.payfast.co.za/eng/process?cmd=_paynow&amp;receiver=emile.esterhuizen%40gmail.com&amp;item_name=Spur+Credit&amp;item_description=Spur+credits+can+buy+you+all+sorts+of+goodies+form+Spur&amp;amount=10.00&amp;return_url=http%3A%2F%2Fwww.emile.me%2Fstaging%2Fpay-test-success&amp;cancel_url=http%3A%2F%2Fwww.emile.me%2Fstaging%2Fpay-test-cancel"><img src="https://www.payfast.co.za/images/buttons/buynow_basic.gif" width="95" height="26" alt="Buy" title="Buy Now with PayFast" /></a> -->
+
+<!-- email button -->
+<!-- <a href="https://www.payfast.co.za/eng/process?cmd=_paynow&receiver=emile.esterhuizen%40gmail.com&item_name=Spur+Credit&item_description=Spur+credits+can+buy+you+all+sorts+of+goodies+form+Spur&amount=10.00&return_url=http%3A%2F%2Fwww.emile.me%2Fstaging%2Fpay-test-success&cancel_url=http%3A%2F%2Fwww.emile.me%2Fstaging%2Fpay-test-cancel"><img src="https://www.payfast.co.za/images/buttons/buynow_basic.gif" width="95" height="26" alt="Buy" title="Buy Now with PayFast" /></a> -->
+
+

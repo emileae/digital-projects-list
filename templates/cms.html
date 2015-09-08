@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>digital project list</title>
+
+  <!-- Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,300italic&Josefin+Slab:300' rel='stylesheet' type='text/css'>
+  <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
+  <link rel="stylesheet" href="/static/font/font-awesome/css/font-awesome.min.css">
+
+  <!-- Medium Editor -->
+  <link rel="stylesheet" href="/static/admin/medium-editor/dist/css/medium-editor.min.css">
+
+  <!-- CSS  -->
+  <link href="/static/stylesheets/materializecms.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+
+  <ul id="slide-out" class="side-nav">
+    <li><a href="/admin/upload_media">Upload Media</a></li>
+    <li><a href="/admin/blog">Blog</a></li>
+    <li><a href="/admin/quote">Page Content</a></li>
+    <li><a href="/admin/content">Page Content</a></li>
+    <li><a id="send_mailer" href="/admin/send_mailer">Send Mailer</a></li>
+  </ul>
+  <a id="nav-slide-out-icon" href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
+
+
+  <div class="container">
+    <div id="main" class="section scrollspy">
+      <div class="row">
+        <div class="col s12 m12 l12">
+          {% block main %}
+            <p>Main content section</p>
+          {% endblock %}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <footer class="page-footer grey darken-2 text-white">
+    <div class="container center">
+      <div class="row">
+        <div class="col l12 m12 s12">
+          <div class="white-text">The footer</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="footer-copyright">
+      <div class="container center">
+      &copy; hollowfish {{year}}
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/static/js/materialize.min.js"></script>
+  <script src="/static/admin/medium-editor/dist/js/medium-editor.min.js"></script>
+  <script src="/static/js/cmsinit.js"></script>
+
+  {% block script %}
+
+  <script type="text/javascript">
+    $('body').on('click', "#send_mailer", function(e){
+      e.preventDefault();
+      function success(){
+        alert("mailer sent!");
+      };
+      $.ajax({
+        url: "/admin/send_mailer",
+        type: "post",
+        data: {},
+        success: success
+      }).fail(function(){
+        alert("failed to send mailer");
+      });
+    });
+  </script>
+
+  {% endblock %}
+
+  </body>
+</html>

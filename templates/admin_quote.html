@@ -1,0 +1,166 @@
+{% extends "cms.html" %}
+
+{% block main %}
+
+<div class="row">
+	<div class="col s12">
+		<h3>Create a new quote</h3>
+		<form action="/admin/quote" class="col s12" method="post">
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <input id="number" type="text" name="number" class="validate">
+		          <label for="number">Quote Number</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <textarea id="reference" name="reference" class="materialize-textarea"></textarea>
+		          <label for="reference">Quote Reference</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <textarea id="notes" name="notes" class="editable editable-spaced" data-placeholder="Notes/caveats"></textarea>
+		        </div>
+		      </div>
+
+		      <!-- <div class="row">
+		      	<div class="col s12 center">
+		      		<input type="checkbox" id="featured" name="featured" />
+     				<label for="featured">Featured?</label>
+		      	</div>	
+		      </div> -->
+
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <input id="issue_date" name="issue_date" type="date" class="datepicker">
+		          <label for="issue_date">Issue Date</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s12">
+		          <input id="due_date" name="due_date" type="date" class="datepicker">
+		          <label for="due_date">Due Date</label>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		      	 <div class="range-field col s12">
+			      <input type="range" id="discount" value="0" name="discount" min="0" max="100" />
+			      <label for="discount">Discount</label>
+			    </div>
+		    </div>
+
+	      	<div class="row">
+		        <div class="input-field col s12">
+		          
+		        	<table>
+				        <thead>
+				          <tr>
+				              <th data-field="id">Item type</th>
+				              <th data-field="name">Description</th>
+				              <th data-field="quantity">Quantity</th>
+				              <th data-field="unit_price">Unit Price</th>
+				              <th data-field="price">Price</th>
+				          </tr>
+				        </thead>
+
+				        <tbody>
+				          <tr id="first_row">
+				            <td>
+				            	<div class="input-field">
+						        	<input type="text" name="type-0" placeholder="eg. Service">
+						        </div>
+				            </td>
+				            <td>
+				            	<div class="input-field">
+						        	<input type="text" name="description-0" placeholder="Build app UI">
+						        </div>
+				            </td>
+				            <td>
+				            	<div class="input-field">
+						        	<input type="text" name="quantity-0" placeholder="100 hours">
+						        </div>
+				            </td>
+				            <td>
+				            	<div class="input-field">
+						        	<input type="text" name="unit_price-0" placeholder="R 550">
+						        </div>
+				            </td>
+				            <td>
+				            	<div class="input-field">
+						        	<input type="text" name="price-0" placeholder="R 55 000">
+						        </div>
+				            </td>
+				          </tr>
+
+				          <tr id="button_row">
+				          	<td>
+					          	<div id="add_row" class="btn" data-rows="0"> Add Row</div>
+				          	</td>
+				          </tr>
+				        </tbody>
+			      	</table>
+
+		        </div>
+	      	</div>
+
+	      	<div class="row">
+		        <div class="input-field col s12">
+		        	<button class="btn waves-effect waves-light" type="submit" name="action">Save
+					    <i class="mdi-content-send right"></i>
+				  	</button>
+		        </div>
+		      </div>
+
+	    </form>
+
+	</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+	$('body').on("click", "#add_row", function(){
+
+		var current_rows = $(this).data("rows");
+		var next_row = parseInt(current_rows)+1;
+
+		var row_html = '<tr id="first_row">\
+				            <td>\
+				            	<div class="input-field">\
+						        	<input type="text" name="type-'+next_row+'" placeholder="Service">\
+						        </div>\
+				            </td>\
+				            <td>\
+				            	<div class="input-field">\
+						        	<input type="text" name="description-'+next_row+'" placeholder="Build app UI">\
+						        </div>\
+				            </td>\
+				            <td>\
+				            	<div class="input-field">\
+						        	<input type="text" name="quantity-'+next_row+'" placeholder="100 hours">\
+						        </div>\
+				            </td>\
+				            <td>\
+				            	<div class="input-field">\
+						        	<input type="text" name="unit_price-'+next_row+'" placeholder="R 550">\
+						        </div>\
+				            </td>\
+				            <td>\
+				            	<div class="input-field">\
+						        	<input type="text" name="price-'+next_row+'" placeholder="R 55 000">\
+						        </div>\
+				            </td>\
+				          </tr>';
+
+      	$("#button_row").before(row_html);
+      	$(this).data("rows", next_row);
+	});
+</script>
+
+{% endblock %}
+
+

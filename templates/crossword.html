@@ -1,0 +1,351 @@
+{% extends "index.html" %}
+
+{% block style %}
+ <link rel="stylesheet" href="/static/experiments/crossword/crossword.css">
+{% endblock %}
+
+{% block main %}
+
+	<div class="row container">
+	    <!-- <form id="new_crossword" action="/admin/crossword" class="col s12" enctype="multipart/form-data" method="post"> -->
+    	<div id="new_crossword" class="col s12">
+
+	      	<div class="row">
+		  		<div class="col s12 center">
+		  			<h2>Words</h2>
+		  			<p>Provide a single word (preferably without spaces) and a corresponding clue, then click "Generate Crossword" to see your crossword. If you're not happy with the resulting crossword hit "Generate Crossword" again to get a new combination.</p>
+		  		</div>
+		  	</div>
+		  	<table id="newWords" class="striped">
+		        <thead>
+		          <tr>
+		              <th data-field="word">Word</th>
+		              <th data-field="clue">Clue</th>
+		          </tr>
+		        </thead>
+
+		        <tbody id="newWordsBody">
+		        	<tr id="custom_tr_0">
+					  	<td class="input-field">
+					  		<input type="text" id="word_0" data-id="0" onchange="dont_remove(event)" name="custom_word" />
+					  		<input type="hidden" id="hidden_custom_word_0" name="custom_word_val">
+			      			<label for="word_0">Word</label>
+					  	</td>
+					  	<td class="input-field">
+				          <input id="custom_clue_0" type="text" name="custom_clue" class="validate">
+				          <label for="custom_clue_0">Clue</label>
+				        </td>
+			    	</tr>
+			  		<tr id="newWordButtonRow">
+			  			<td>
+			  			</td>
+						<td class="right-align">
+							<span id="newWord" class="btn btn-large waves-effect waves-light">
+				        		Add a new word
+						  	</span>
+				      	</td>
+			      	</tr>
+		        </tbody>
+	      	</table>
+
+	      	<input type="hidden" id="crossword_html" name="crossword_html">
+	      	<input type="hidden" id="crossword_grid" name="crossword_grid">
+
+	      	<div class="row">
+		        <div class="input-field col s12">
+		        	<button class="btn btn-large waves-effect waves-light" onclick="generate_crossword(event)">
+		        		Generate Crossword
+				  	</button>
+		        </div>
+	      	</div>
+
+
+	      <div class="row section-to-print">
+		  	<div id="crossword_preview" class="col s12">
+
+		  		<div id="crossword">Nothing yet...</div>
+			    <table id="clues">
+			        <thead>
+			            <tr style="border-bottom: 1px solid #474747;">
+			                <th>Across</th>
+			                <th>Down</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr>
+			                <td><ul id="across"></ul></td>
+			                <td><ul id="down"></ul></td>
+			            </tr>
+			        </tbody>
+			    </table>
+		  	</div>
+		  </div>
+
+<!-- Start sample crossword -->
+<!-- END sample crossword -->
+
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<button class="btn btn-large waves-effect waves-light" onclick="window.print();">
+	        		Print Crossword
+			  	</button>
+			  	<p>(the print result still needs some work)</p>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript" src="/static/experiments/crossword/crossword.js"></script>
+
+	<script type="text/javascript">
+		function dont_remove(event){
+			var $this = $(event.target);
+			var tr = $this.closest("tr").toggleClass("dont_remove");
+		};
+
+		var new_words_count = 1;
+		$("body").on("click", "#newWord", function(){
+			
+			var new_word_html = '<tr id="custom_tr_'+new_words_count+'">'+
+			  	'<td class="input-field">'+
+			  		'<input type="text" id="word_'+new_words_count+'" data-id="'+new_words_count+'" onchange="dont_remove(event)" name="custom_word" />'+
+			  		'<input type="hidden" id="hidden_custom_word_'+new_words_count+'" name="custom_word_val">'+
+	      			'<label for="word_'+new_words_count+'">New Word</label>'+
+			  	'</td>'+
+			  	'<td class="input-field">'+
+		          '<input id="custom_clue_'+new_words_count+'" type="text" name="custom_clue" class="validate">'+
+		          '<label for="custom_clue_'+new_words_count+'">Clue</label>'+
+		        '</td>'+
+	    	'</tr>';
+
+	    	$("#newWordButtonRow").before(new_word_html);
+
+	    	new_words_count += 1;
+
+		});
+
+		$("body").on("click", ".get_more_words", function(e){
+
+			e.preventDefault();
+
+			var $this = $(this);
+			var url = $this.attr("href");
+
+			function success(data){
+				$("#wordsBody").children("tr").not("tr.dont_remove").remove()
+				$("#wordsBody").append(data);
+			};
+
+			$.ajax({
+				url: url,
+				type: 'get',
+				success: success
+			}).fail(function(){
+				alert("something went wrong");
+			});
+
+		});
+
+		function generate_crossword(event){
+			event.preventDefault();	
+
+			// words[i] correlates to clues[i]
+		    var words = [];
+		    var clues = [];
+
+		    var checked_words = $("input:checked[name='word']");
+		    console.log("_____ checked_words", checked_words);
+		    var new_words = $("input[name='custom_word']");
+
+		    // checked words
+			for (var i=0; i<checked_words.length; i++){
+				var $input = $(checked_words[i]);
+				var id = $input.data("id");
+				var clue = $("#clue_"+id).val();
+
+				words.push($input.val());
+				clues.push(clue);
+				
+			};
+
+			// new words
+			for (var i=0; i<new_words.length; i++){
+				var $input = $(new_words[i]);
+				var id = $input.data("id");
+				var clue = $("#custom_clue_"+id).val();
+				var word = $input.val();
+
+				if (clue.length >0 && $input.val().length >0){
+					words.push($input.val());
+					clues.push(clue);
+				};
+
+			};
+
+		    // Create crossword object with the words and clues
+		    var cw = new Crossword(words, clues);
+
+		    // create the crossword grid (try to make it have a 1:1 width to height ratio in 10 tries)
+		    var tries = 50; 
+		    var grid = cw.getSquareGrid(tries);
+
+		    // report a problem with the words in the crossword
+		    if(grid == null){
+		        var bad_words = cw.getBadWords();
+		        var str = [];
+		        for(var i = 0; i < bad_words.length; i++){
+		            str.push(bad_words[i].word);
+		        }
+		        alert("Shoot! A grid could not be created with these words:\n" + str.join("\n"));
+		        return;
+		    }
+
+		    // turn the crossword grid into HTML
+		    var show_answers = false;
+		    var html = CrosswordUtils.toHtml(grid, show_answers);
+		    //console.log("Generated Crossword");
+		    //console.log(html);
+		    document.getElementById("crossword").innerHTML = html;
+
+		    // make a nice legend for the clues
+		    var legend = cw.getLegend(grid);
+		    addLegendToPage(legend);
+
+		    if (grid != null){
+		    	var crossword_html = $("#crossword_preview").html();
+		    	$("#crossword_html").val(crossword_html);
+		    	$("#crossword_grid").val(JSON.stringify(grid));
+		    }
+
+		};
+
+		function addLegendToPage(groups){
+		    for(var k in groups){
+		        var html = [];
+		        for(var i = 0; i < groups[k].length; i++){
+		            //html.push("<li><strong>" + groups[k][i]['position'] + ".</strong> " + groups[k][i]['clue'] + " ("+groups[k][i]['word']+")</li>");
+		            html.push("<li><strong>" + groups[k][i]['position'] + ".</strong> " + groups[k][i]['clue'] + "</li>");
+		        }
+		        document.getElementById(k).innerHTML = html.join("\n");
+		    }
+		};
+	</script>
+
+	<!-- Validate the form -->
+	<script type="text/javascript">
+
+		$("body").on("submit", "#new_crossword", function(e){
+
+			var checked_words = $("input:checked[name='word']");
+
+			valid_form = true;
+
+			var headline = $("#headline").val();
+
+			if (headline.length <= 0){
+				e.preventDefault();
+				alert("A headline is required");
+				return
+				/*valid_form = false;
+				$("#headline").siblings("label").addClass("active");
+				$("#headline").addClass("invalid");
+				$("#headline").focus();*/
+			};
+
+			for (var i=0; i<checked_words.length; i++){
+				var id = $(checked_words[i]).data("id");
+				var clue = $("#clue_"+id).val();
+				if(!clue){
+					valid_form = false;
+					$("#tr_"+id).addClass("error_bg");
+				};
+			};
+
+			var new_words = $("input[name='custom_word']");
+			for (var i=0; i<new_words.length; i++){
+				var $input = $(new_words[i]);
+				if( $input.val().length > 0 ){
+					var id = $input.data("id");
+					var clue = $("#custom_clue_"+id).val();
+					if(!clue){
+						valid_form = false;
+						$("#custom_tr_"+id).addClass("error_bg");
+					};
+				}else{
+					new_words.splice(i, 1);
+				};
+			};
+
+			if(checked_words.length <= 0 && new_words.length <= 0){
+				e.preventDefault();
+				alert("Please include some words in the crossword.");
+				valid_form = true;
+			};
+
+			if( !$("#url_id").hasClass("valid") ){
+				e.preventDefault();
+				alert("Please ensure there is a unique url ID");
+				valid_form = true;
+			};
+
+			if(!valid_form){
+				e.preventDefault();
+				alert("Please include clues for each word.");
+				valid_form = true;
+				//return false;
+			}else{
+
+				// make sure there's a crossword
+				var crossword_html = $("#crossword_html").val();
+				if( crossword_html.length <= 0 ){
+					e.preventDefault();
+					valid_form = true;
+					alert("Please ensure that a crossword has been generated.");
+				};
+
+				// now edit all values of the words to include the clue
+				// checked words
+				for (var i=0; i<checked_words.length; i++){
+					var $input = $(checked_words[i]);
+					var id = $input.data("id");
+					var clue = $("#clue_"+id).val();
+
+					var old_val = $input.val();
+					var new_val = old_val+"|"+clue;
+					$input.val(new_val);
+					
+				};
+				// new words
+				for (var i=0; i<new_words.length; i++){
+					var $input = $(new_words[i]);
+					var id = $input.data("id");
+					var clue = $("#custom_clue_"+id).val();
+
+					var word = $input.val();
+
+					if (word && clue){
+						var new_val = word+"|"+clue;
+						$("#hidden_custom_word_"+id).val(new_val);
+					};
+					
+				};
+
+			};
+
+		});
+
+	</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+

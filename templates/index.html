@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>emile.me</title>
+
+  <!-- SEO stuff -->
+  <link href="https://emile.me/" rel="canonical" />
+  {% block seo_description %}
+  <meta name="description" content="Listing a whole lot of cool, paid digital products.">
+  {% endblock %}
+
+  <!-- Social -->
+
+  <meta property="og:title" content="emile.me" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://emile.me/" />
+  <meta property="og:image" content="http://emile.me/static/img/happy-float.png" />
+  <meta property="og:description" content="Listing a whole lot of cool, paid digital products." />
+  <meta property="og:site_name" content="emile.me" />
+  <!-- <meta property="fb:app_id" content="Your FB_APP_ID" /> -->
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@emiru84">
+  <meta name="twitter:title" content="emile.me">
+  <meta name="twitter:description" content="Listing a whole lot of cool, paid digital products.">
+  <meta name="twitter:creator" content="@emiru84">
+  <!-- Twitter Summary card images must be at least 120x120px -->
+  <meta name="twitter:image" content="http://emile.me/static/img/happy-float.png">
+
+  <!-- Fonts -->
+  <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,300italic&Josefin+Slab:300' rel='stylesheet' type='text/css'> -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans|PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/static/font/font-awesome/css/font-awesome.min.css">
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="/static/img/smiley-pad1.png" />
+
+
+  <!-- CSS  -->
+  <link href="/static/stylesheets/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-64376900-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+  {% block style %}
+  {% endblock %}
+
+</head>
+<body>
+<header>
+  <!-- <ul id="slide-out" class="side-nav">
+    <li><a href="/admin/upload_media">Upload Media</a></li>
+    <li><a href="/admin/blog">Blog</a></li>
+    <li><a href="/admin/quote">Page Content</a></li>
+    <li><a href="/admin/content">Page Content</a></li>
+    <li><a id="send_mailer" href="/admin/send_mailer">Send Mailer</a></li>
+  </ul> -->
+  <div id="slide-out" class="side-nav">
+    <div class="row">
+      <form id="project_form" method="post" action="/save_project" class="col s12">
+
+        <div class="row">
+          <div class="col s12">
+            <h4>Post a project</h4>
+            <p>some super cool developers will get in touch with you</p>
+            <div id="message" class="center highlight"></div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" name="email" type="email" class="validate">
+            <label for="email">your email (this won't be revealed ever)</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="name" name="name" type="text" class="validate">
+            <label for="name">your name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="project_title" name="project_title" type="text" class="validate">
+            <label for="project_title">project title</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="eg. 1000" id="value" name="value" type="number" class="validate">
+            <label for="value">project value (number only)</label>
+          </div>
+          <div class="input-field col s6">
+            <select id="currency" name="currency">
+              <option value="" disabled selected>Currency</option>
+              <option value="R">South African Rand R</option>
+              <option value="&#36;">US Dollar &#36;</option>
+              <option value="&#163;">British Pound &#163;</option>
+              <option value="&#128;">Euro &#128;</option>
+              <option value="&#165;">Japanese Yen &#165;</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="description" name="description" class="materialize-textarea"></textarea>
+            <label for="description">project description</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <button class="waves-effect waves-light btn">Post!</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="row center">
+    <!-- <a href="/" class="logo">
+      <img src="/static/img/happy-float-logo.svg">
+    </a>  -->
+    <a id="home-icon" href="/" class="show-on-large">home</a>
+    <a id="nav-slide-out-icon" href="#" data-activates="slide-out" class="button-collapse show-on-large">post a project</a>
+  </div>
+
+</header>
+<main class="container">
+{% block main %}
+  
+  <div class="row">
+    <div class="col s12">
+      <h3>Digital Projects</h3>
+      <p class="flow-text">from people/companies willing to pay for them.</p>
+    </div>
+  </div>
+
+<div id="project-container">
+  {% for project in projects %}
+  <div id="project_{{project.key.id()}}" class="row project_card">
+    <div class="col s12 card">
+      <div class="card-content">
+        <div class="row">
+          <div class="col s12 m6 card-title title">
+            <a class="project-link flow-text" href="/project/{{project.key.id()}}">{{project.name}}</a>
+          </div>
+          <div class="col s12 m6 card-title value">
+            {{project.currency|check_none}} {{project.value}}
+          </div>
+        </div>
+        <p class="description ellipsis">
+          {{project.description}}
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <div id="project_" class="hidden row project_card">
+    <div class="col s12 card">
+      <div class="card-content">
+        <div class="row">
+          <div class="col s12 m6 card-title title">
+            <a class="project-link flow-text" href="/project/"></a>
+          </div>
+          <div class="col s12 m6 card-title value right-align">
+            
+          </div>
+        </div>
+        <p class="description ellipsis">
+          
+        </p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+</div>
+</main>
+
+  <!--  Scripts-->
+  <!--<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <script src="/static/js/materialize.min.js"></script>
+  <script src="/static/js/velocity.min.js"></script>
+  <script src="/static/js/init.js"></script>
+  <script type="text/javascript" src="/static/js/ajax.js"></script>
+
+  <script type="text/javascript">
+
+  </script>
+
+  {% block script %}
+
+  <script type="text/javascript">
+    $("body").one("click", ".project_card", function(){
+      console.log($(this).find(".project-link").attr("href"));
+      window.location = $(this).find(".project-link").attr("href");
+    });
+  </script>
+
+  {% endblock %}
+
+  </body>
+</html>

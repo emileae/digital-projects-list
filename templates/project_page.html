@@ -1,0 +1,116 @@
+{% extends "index.html" %}
+
+{% block main %}
+
+<div class="row">
+    <div class="col s12 card">
+      <div class="card-content">
+        <div class="row">
+          <div class="col s12 m6 card-title">
+            <p class="flow-text">{{project.name}}</p>
+          </div>
+          <div class="col s12 m6 card-title value">
+            {{project.currency|check_none}} {{project.value}}
+          </div>
+        </div>
+        <p id="project-description">
+          {{project.description}}
+        </p>
+      </div>
+    </div>
+</div>
+
+<div class="row">
+	<div class="col s12 right-align">
+		<button class="waves-effect waves-light btn" onclick="open_response_box()">Respond</button>
+	</div>
+</div>
+
+
+<div id="response-box" class="row response-row">
+	<div class="col s10 offset-s1 card">
+		<div class="card-content">
+			<div class="card-title">
+				<p class="flow-text hide-on-small-and-down">Respond by providing an enticing message and your website</p>
+				<p class="flow-text hide-on-med-and-up">Your response</p>
+			</div>
+			<div>
+				<p id="response-message" class="center highlight"></p>
+			</div>
+			<form id="response-form" method="post", action="/save_response/{{project.key.id()}}">
+				<div class="row">
+		          <div class="input-field col s12">
+		            <input placeholder="eg. http://emile.me" id="website" name="website" type="text" class="validate">
+		            <label for="website">your website</label>
+		          </div>
+		        </div>
+		        <div class="row">
+		          <div class="input-field col s12">
+		            <input id="hook" name="hook" type="text" class="validate" maxlength="140" length="140">
+		            <label for="hook">your message</label>
+		          </div>
+		        </div>
+
+		        <div class="row">
+		        	<div class="col s12">
+		        		<button class="waves-effect waves-light btn">Respond</button>
+		        	</div>
+		        </div>
+	      	</form>
+      	</div>
+	</div>
+</div>
+
+{% if responses %}
+<div id="response-list" class="row">
+	{% for response in responses %}
+	<div id="response_{{response.key.id()}}" class="col s10 offset-s1 card response-card">
+		<div class="card-content">
+	      	<p class="response-hook">{{response.hook}}</p>
+	      	<p class="right-align"><a href="{{response.website}}" target="_blank">contact</a></p>
+	      </div>
+	</div>
+	{% endfor %}
+</div>
+{% else %}
+<div id="response-list" class="row">
+	<div class="col s12 center">
+		<p id="empty-content-note">No responses yet, check again later</p>
+	</div>
+	<div id="response-" class="hidden col s10 offset-s1 card response-card">
+		<div class="card-content">
+	      	<p class="response-hook"></p>
+	      	<p class="right-align"><a id="response-link" href="#" target="_blank">contact</a></p>
+	      </div>
+	</div>
+</div>
+{% endif %}
+
+{% if next_curs %}
+<div class="row">
+	<div class="col s12 center">
+		<a href="/project/{{project.key.id()}}?cursor={{next_curs}}" class="waves-effect waves-light btn">More</a>
+	</div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block script %}
+
+	<script type="text/javascript">
+		function open_response_box(){
+			$("#response-box").toggleClass("open");
+		};
+	</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

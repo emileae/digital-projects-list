@@ -1,0 +1,46 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html> <!--<![endif]-->
+<head>
+  <title>Flappy Bird Reborn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui, user-scalable=no">
+  <link href="/static/promo/css/styles.css" rel="stylesheet" type="text/css">
+  {% block style %}
+    <style type="text/css">
+      .canvas-container{
+        text-align:center;
+      }
+      canvas{
+        border: 1px solid #000;
+        background-color: #fff;
+      }
+    </style>
+  {% endblock %}
+</head>
+<body>
+  {% block main %}
+    <div id="flappy-bird-reborn"></div>
+  {% endblock %}
+
+  {% block script %}
+    <script src="/static/promo/phaser.min.js"></script>
+
+    <script src="/static/promo/states/boot.js"></script>
+    <script src="/static/promo/states/menu.js"></script>
+    <script src="/static/promo/states/play.js"></script>
+    <script src="/static/promo/states/preload.js"></script>
+
+    <script src="/static/promo/prefabs/bird-demo.js"></script>
+    <script src="/static/promo/prefabs/bird.js"></script>
+    <script src="/static/promo/prefabs/ground.js"></script>
+    <script src="/static/promo/prefabs/pipe.js"></script>
+    <script src="/static/promo/prefabs/pipeGroup.js"></script>
+    <script src="/static/promo/prefabs/scoreboard.js"></script>
+    <script src="/static/promo/prefabs/sensor.js"></script>
+
+    <script src="/static/promo/main.js"></script>
+  {% endblock %}
+</body>
+</html>

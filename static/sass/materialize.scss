@@ -1,0 +1,439 @@
+@charset "UTF-8";
+
+// Mixins
+@import "components/prefixer";
+@import "components/mixins";
+@import "components/color";
+
+// Variables;
+@import "components/variables";
+
+// Reset
+@import "components/normalize";
+
+// components
+@import "components/global";
+@import "components/icons-material-design";
+@import "components/grid";
+@import "components/navbar";
+@import "components/roboto";
+@import "components/typography";
+@import "components/cards";
+@import "components/toast";
+@import "components/tabs";
+@import "components/tooltip";
+@import "components/buttons";
+@import "components/dropdown";
+@import "components/waves";
+@import "components/modal";
+@import "components/collapsible";
+@import "components/materialbox";
+@import "components/form";
+@import "components/table_of_contents";
+@import "components/sideNav";
+@import "components/preloader";
+@import "components/slider";
+@import "components/date_picker/default.scss";
+@import "components/date_picker/default.date.scss";
+@import "components/date_picker/default.time.scss";
+
+
+
+// ----- New Styles Emile.me
+
+
+
+
+
+
+
+
+
+
+
+
+/* My styles */
+
+html{
+	// background-color: color("grey", "lighten-3") !important;
+	background-image: url("/static/img/crossword.png");
+	color: #474747;
+}
+
+
+@media #{$small-and-down} {
+    .container {
+    	padding-left: 0px;
+    	padding-right: 0px;
+    }
+}
+
+/* - keeps footer at bottom of page - */
+
+a {
+     border-bottom: 1px dotted #474747;
+     color: inherit;
+     padding: 3px 3px 1px 3px;
+}
+a:hover {
+     border-bottom: 1px dotted #474747;
+     @include transition(.3s);
+     color: $highlight-color;
+}
+
+a.logo{
+	float: left;
+	text-decoration: none;
+	border-bottom: 0px;
+}
+a.logo:hover{
+	text-decoration: none;
+	border-bottom: 0px;
+}
+.logo img{
+	max-width: 4rem;
+	vertical-align: middle;
+	@include transition(.3s);
+}
+.logo img:hover{
+	max-width: 5rem;
+	@include transition(.3s);
+}
+
+#smiley_icon {
+	width: 200px;
+	height: 200px;
+}
+
+@media #{$small-and-down} {
+    #smiley_icon {
+		width: 100px;
+		height: 100px;
+	}
+}
+
+
+
+#nav-div {
+	/*position: absolute;
+	top: 10px;
+	right: 10px;*/
+	height: 5rem;
+}
+#nav-div a {
+	margin-right: 2rem;
+}
+
+.social-icons a{
+	font-size: 2.5rem;
+	margin-left: 1rem;
+	text-decoration: none;
+	border-bottom: 0px;
+	color: inherit;
+}
+.social-icons a:hover{
+	text-decoration: none;
+	border-bottom: 0px;
+}
+.social-icons-link i:hover{
+	@include transition(.3s);
+	color: $highlight-color;
+}
+
+.highlight{
+	color: $highlight-color;
+}
+
+.selected {
+	background-color: rgba(72,71,72,0.2);
+}
+
+/* ====================== */
+/* Cards */
+/* ====================== */
+
+.card {
+	@include transition(.3s);
+}
+.card:hover {
+	@extend .z-depth-3;
+}
+
+.card a {
+	border-bottom: none;
+	@include transition(.3s);
+}
+.card a:hover {
+	color: $highlight-color;
+}
+
+.card .card-image a {
+	padding: 0px;
+}
+
+.card .card-content .value {
+	text-align: right;
+}
+@media #{$small-and-down} {
+    .card .card-content .value {
+		text-align: left;
+	}
+}
+
+
+
+/*=======================*/
+/* NAV */
+/*=======================*/
+
+#nav-slide-out-icon {
+	font-size: 2rem;
+	padding-left: 1rem;
+	border-bottom: none;
+}
+
+#home-icon {
+	font-size: 2rem;
+	padding-left: 1rem;
+	border-bottom: none;
+}
+
+
+/*=======================*/
+/* Notifications, errors, success */
+/*=======================*/
+input.error {
+	background-color: rgba(255,0,0,0.4);
+    border-radius: 5px;
+}
+textarea.error {
+	background-color: rgba(255,0,0,0.4);
+    border-radius: 5px;
+}
+select.error {
+	background-color: rgba(255,0,0,0.4);
+    border-radius: 5px;
+}
+
+input.success {
+	background-color: rgba(0,255,0,0.4);
+    border-radius: 5px;
+}
+textarea.success {
+	background-color: rgba(0,255,0,0.4);
+    border-radius: 5px;
+}
+select.success {
+	background-color: rgba(0,255,0,0.4);
+    border-radius: 5px;
+}
+
+#message {
+	width: 0%;
+	overflow: hidden;
+	@include transition(.3s);
+}
+#message.emphasis {
+	width: 100%;
+}
+
+
+/*=========================*/
+/* helpers */
+/*=========================*/
+
+.ellipsis {
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+
+.hidden {
+	display: none;
+}
+
+
+/*=========================*/
+/* Home/Index page */
+/*=========================*/
+
+.project_card {
+	cursor: pointer;
+}
+
+
+/*=========================*/
+/* Project page */
+/*=========================*/
+
+#project-description {
+    line-height: 2rem;
+	white-space: pre-line;
+}
+
+.response-row {
+	@include transition(.5s);
+	max-height: 0px;
+	overflow: hidden;
+}
+
+.response-row.open {
+	max-height: 50rem;
+	height: 28rem;
+}
+
+
+
+
+
+
+
+/* Navigation */
+
+nav{
+	box-shadow: none;
+	background-color: transparent;
+	color: inherit;
+}
+
+.button-collapse {
+  color: $highlight-color !important;
+}
+
+
+/* - - - - GRID and sections - - - */
+
+
+/*  - - - - - Contact - - - - -  */
+
+.contact-table td{
+	padding: 0px;
+}
+
+.card .card-action .contact-table a{
+	color: $highlight-color;
+	text-transform: lowercase;
+}
+
+
+/* - - - - - - footer  - - -- - */
+
+
+
+
+/*  - - forms - - */
+/* label color */
+.input-field label {
+ color: $primary-body-color;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+ color: $highlight-color;
+}
+.input-field input[type=email]:focus + label {
+ color: $highlight-color;
+}
+.input-field textarea.materialize-textarea:focus + label {
+ color: $highlight-color;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+ border-bottom: 1px solid $highlight-color;
+ box-shadow: 0 1px 0 0 $highlight-color;
+}
+.input-field input[type=email]:focus {
+ border-bottom: 1px solid $highlight-color;
+ box-shadow: 0 1px 0 0 $highlight-color;
+}
+.input-field textarea.materialize-textarea:focus {
+ border-bottom: 1px solid $highlight-color;
+ box-shadow: 0 1px 0 0 $highlight-color;
+}
+
+/* valid color */
+.input-field input[type=text].valid {
+ border-bottom: 1px solid $primary-body-color;
+ box-shadow: 0 1px 0 0 $primary-body-color;
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+ border-bottom: 1px solid #ddd;
+ box-shadow: 0 1px 0 0 #ddd;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+ color: $highlight-color;
+}
+
+[type="checkbox"]:checked + label:before {
+  border-right: 2px solid $highlight-color;
+  border-bottom: 2px solid $highlight-color;
+}
+
+
+/* - - - - - -  MOBILE - - - - - - */
+
+@media #{$small-and-down} {
+    
+}
+
+/*  - - - - - - CONTACT FORM - - - - - - */
+#thank_you{
+	font-size: 2rem;
+	height: 0px;
+	overflow: hidden; 
+	@include transition(.3s);
+}
+
+#thank_you_subscribe{
+	font-size: 2rem;
+	height: 0px;
+	overflow: hidden; 
+	@include transition(.3s);
+}
+#thank_you_unsubscribe{
+	font-size: 2rem;
+	height: 0px;
+	overflow: hidden; 
+	@include transition(.3s);
+}
+
+
+/*  - - - - - - - WORK styles - - - - - - - -  */
+
+.card-work{
+	img{
+		width: 100%;
+	}
+	height: 25rem;
+}
+
+/*  - - - - - - - BLOG STYLES - - - - - - - -  */
+
+.blog-post{
+	img{
+    	display: block;
+    	min-width: 100%;
+  	}
+  	overflow: hidden;
+}
+
+.cover-image-container img{
+	width: 100%;
+	height: auto;
+}
+
+.post-time{
+	font-size: 0.7rem;
+}
+
+
+
+
+
+
+
+
+
+
+

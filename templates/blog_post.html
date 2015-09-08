@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+
+{% block seo_description %}
+  <meta name="description" content="{{blog.short_text}}">
+{% endblock %}
+
+{% block main %}
+
+  	<div id="post_{{blog.key.id()}}" class="container" style="padding-bottom: 3rem;">
+      	<div class="row">
+      		<div class="col s12 m12 l12">
+      			<h2 class="center">
+              {{blog.title}} 
+            </h2>
+            {% if blog.url %}
+              <p><a href="{{blog.url}}" target="_blank">Website <i class="fa fa-external-link-square"></i></a> </p>
+            {% endif %}
+            {% if blog.cover_img %}
+      			<div class="cover-image-container">
+      				<img src="{{blog.cover_img}}=s1500" class="responsive-img">
+      			</div>
+            {% endif %}
+      		</div>
+      	</div>
+      	<div class="row">
+      		<div class="col s12 m12 l12 blog-post">
+      		{{blog.post|safe}}
+      		</div>
+      	</div>
+      	<div class="post-time">
+          {% if blog.url %}
+            <span class="left"><a href="{{blog.url}}" target="_blank">Website <i class="fa fa-external-link-square"></i></a> </span>
+          {% endif %}
+      		<span class="right">posted {{blog.created|blog_date}}</span>
+      	</div>
+  	</div>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}
